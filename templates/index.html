@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{%block title%}Quiz | Home{%endblock%}
+{%block body%}
+    <div class="container">
+        {% if user.is_authenticated %}
+                <br>
+                <div class="container">
+                    <p>Hi, {{user.username|upper}}</p>
+                    <div class="row">
+                        <h3>Total Exams Available</h3>
+                        {% for course in total_course %}
+                            <li>{{ course.course_name }}</li> 
+                            <a href="{% url 'quiz' course.id course.question_set.all.0.id|default:'1' %}">Click to view Questions</a>
+                        {% endfor %}
+                    </div>
+                </div> 
+        {% else %}
+            <center>
+                <br>
+                <p>Not Logged-In</p>
+                <p>PLease Log-In to View the content</p>
+            </center>
+        {% endif %}
+    </div>       
+{%endblock%}
